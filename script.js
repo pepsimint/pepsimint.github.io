@@ -71,7 +71,7 @@ function getCurrentDateTime() {
 function processCommand(cmd) {
   const c = cmd.trim();
   if (c === 'help') {
-    printOutput('Available commands:\nhelp - show this\ninfo - general information about me\naliases - my aliases\nclear - clear the terminal\ndate - display current date');
+    printOutput('Available commands:\nhelp - show this\ninfo - general information about me\naliases - my aliases\nclear - clear the terminal\ndate - display current date\nmusic - music artists i like most');
   } else if (c === 'info') {
     printOutput('I am 17 years old, my birthday is on the 26th of October. Aspiring IT technician and the greatest programmer on earth (that’s why god chose me)');
   } else if (c === 'clear') {
@@ -84,6 +84,8 @@ function processCommand(cmd) {
     slowlyLoad('tole.jpeg');
   } else if(c ==='date') {
     printOutput(getCurrentDateTime());
+  } else if(c === 'music') {
+    printOutput('I like Edward Skeletrix, ICP, M.I.A, Osamason, Radiohead, Deftones, Goreshit...  ')
   } else {
     printOutput(`Command not found: ${c}`);
   }
