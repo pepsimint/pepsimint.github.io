@@ -1,0 +1,43 @@
+body {
+    background-color:#1E1E1E;
+    font-family: "DejaVu Sans Mono";
+    color: white;
+}
+.user{
+    color: #EF2929;
+}
+.tilde{
+    color: #3584e4;
+}
+.cursor {
+    display: inline-block;
+    width: 8px;
+    height: 1.2em;
+    vertical-align: bottom;
+    background-color: white;
+    animation: blink 1s steps(1) infinite;
+}
+@keyframes blink {
+    0%, 50% { opacity: 1; }
+    50.01%, 100% { opacity: 0; }
+}
+@media (max-width: 600px) {
+  body {
+    font-size: 14px;
+  }
+  #terminal {
+    padding: 10px;
+  }
+  .cursor {
+    width: 6px;
+  }
+}
+
+#hidden-input {
+  position: absolute;
+  opacity: 0;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 1em;
+}

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div id="terminal" tabindex="0">
+
+  <div id="welcome-message">
+    Pepsi bash, version 5.2.21(1)-release (x86_64-pc-pepsi-gnu)<br>
+    These shell commands are defined internally.  Type `help` to see this list.<br><br>
+  </div>
+
+  <div id="output-container"></div>
+
+  <div id="input-container">
+    <span class="prompt">
+      <span class="user">pepsimint@pepsimint</span>:<span class="tilde">~</span>$
+    </span>
+    <span class="input-line" id="input-line"></span><span class="cursor" id="cursor"></span>
+  </div>
+  <input type="text" id="hidden-input" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+
+    <script src="script.js"></script>
+</body>
+</html>
