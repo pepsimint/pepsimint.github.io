@@ -79,7 +79,7 @@ function processCommand(cmd) {
   } else if (c === '') {
     printOutput('');
   } else if (c === 'aliases') {
-    printOutput('I go by either pepsimint, peppermint, fyrmint or fyrment on most platforms.');
+    printOutput('I go by either pepsimint, pebbsimint, peppermint, fyrmint or fyrment on most platforms.');
   } else if (c === 'tole') {
     slowlyLoad('tole.jpeg');
   } else if(c ==='date') {
