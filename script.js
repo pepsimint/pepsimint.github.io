@@ -3,17 +3,45 @@ const outputContainer = document.getElementById('output-container');
 const inputLine = document.getElementById('input-line');
 const hiddenInput = document.getElementById('hidden-input');
 
-let command = '';
+function randomUint64() {
+  const array = new Uint32Array(2);
+  crypto.getRandomValues(array); 
+  return (BigInt(array[0]) << 32n) | BigInt(array[1]);
+}
+function iteratorSim() {
+  var solutionExists = randomUint64();
+  var solutionIsPortable = randomUint64();
+  var solutionGenApplicable = randomUint64();
+  var message = "";
 
+  if (solutionExists === randomUint64()) {
+    if (solutionIsPortable === randomUint64()) {
+      if (solutionGenApplicable === randomUint64()) {
+        message = "SOLUTION HAS BEEN FOUND, IS PORTABLE, AND IS GENERALLY APPLICABLE.";
+      } else {
+        message = "SOLUTION HAS BEEN FOUND AND IS PORTABLE, BUT ISN'T GENERALLY APPLICABLE.";
+      }
+    } else {
+      message = "SOLUTION HAS BEEN FOUND BUT ISN'T PORTABLE.";
+    }
+  } else {
+    message = "SOLUTION HASN'T BEEN FOUND.";
+  }
+
+  printOutput(message);
+}
+
+
+let command = '';
+let history = [];
+let historyIndex = -1;
 terminal.addEventListener('click', () => {
   hiddenInput.focus();
 });
-
 hiddenInput.addEventListener('input', () => {
   command = hiddenInput.value;
   inputLine.textContent = command;
 });
-
 hiddenInput.addEventListener('keydown', e => {
   if (e.key === 'Enter') {
     e.preventDefault();
@@ -21,6 +49,39 @@ hiddenInput.addEventListener('keydown', e => {
     command = '';
     inputLine.textContent = '';
     hiddenInput.value = '';
+  }
+
+  if (e.key === 'ArrowUp') {
+    e.preventDefault();
+    if (history.length === 0) return;
+
+    if (historyIndex === -1) {
+      historyIndex = history.length - 1;
+    } else if (historyIndex > 0) {
+      historyIndex--;
+    }
+
+    command = history[historyIndex];
+    inputLine.textContent = command;
+    hiddenInput.value = command;
+  }
+
+  if (e.key === 'ArrowDown') {
+    e.preventDefault();
+    if (history.length === 0) return;
+
+    if (historyIndex === -1) return;
+
+    if (historyIndex < history.length - 1) {
+      historyIndex++;
+      command = history[historyIndex];
+    } else {
+      historyIndex = -1;
+      command = '';
+    }
+
+    inputLine.textContent = command;
+    hiddenInput.value = command;
   }
 });
 
@@ -49,6 +110,8 @@ function runCommand(cmd) {
   inputLine.textContent = '';
   hiddenInput.value = '';
   terminal.scrollTop = terminal.scrollHeight;
+  history.push(cmd);
+  historyIndex = -1; 
 }
 
 function appendCommandLine(cmd) {
@@ -63,9 +126,10 @@ function printOutput(text) {
   out.innerHTML = text.replace(/\n/g, '<br>');
   outputContainer.appendChild(out);
 }
+
 function getCurrentDateTime() {
-    const now = new Date();
-    return now.toString();  
+  const now = new Date();
+  return now.toString();
 }
 
 function processCommand(cmd) {
@@ -82,32 +146,34 @@ function processCommand(cmd) {
     printOutput('I go by either pepsimint, pebbsimint, peppermint, fyrmint or fyrment on most platforms.');
   } else if (c === 'tole') {
     slowlyLoad('tole.jpeg');
-  } else if(c ==='date') {
+  } else if (c === 'date') {
     printOutput(getCurrentDateTime());
-  } else if(c === 'music') {
-    printOutput('I like Edward Skeletrix, ICP, M.I.A, Osamason, Radiohead, Deftones, Goreshit...  ')
+  } else if (c === 'music') {
+    printOutput('I like Edward Skeletrix, ICP, M.I.A, Osamason, Radiohead, Deftones, Goreshit...');
+  } else if (c === 'iterate') {
+    iteratorSim();
   } else {
     printOutput(`Command not found: ${c}`);
   }
+
   function slowlyLoad(src) {
-  const container = document.createElement('div');
-  container.classList.add('output');
-  outputContainer.appendChild(container);
+    const container = document.createElement('div');
+    container.classList.add('output');
+    outputContainer.appendChild(container);
 
-  const img = new Image();
-  img.src = src;
-  img.style.clipPath = 'inset(100% 0 0 0)'; 
-  container.appendChild(img);
-  let progress = 100;
-  const interval = setInterval(() => {
-    progress -= 1;
-    img.style.clipPath = `inset(${progress}% 0 0 0)`;
-    if (progress <= 0) {
-      clearInterval(interval);
-      printOutput('THE FELINE IS DEPLOYED');
-    }
-  }, 500);
+    const img = new Image();
+    img.src = src;
+    img.style.clipPath = 'inset(100% 0 0 0)';
+    container.appendChild(img);
+
+    let progress = 100;
+    const interval = setInterval(() => {
+      progress -= 1;
+      img.style.clipPath = `inset(${progress}% 0 0 0)`;
+      if (progress <= 0) {
+        clearInterval(interval);
+        printOutput('THE FELINE IS DEPLOYED');
+      }
+    }, 500);
+  }
 }
-}
-
-
