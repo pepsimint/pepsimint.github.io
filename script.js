@@ -10,7 +10,7 @@ function randomUint64() {
 }
 
 var highestLevelReached = 0;
-
+var iterateAttempts = 0;
 
 function iteratorSim() {
     var solutionExists = randomUint64();
@@ -50,6 +50,7 @@ function getHighestLevelReached() {
     } else if (highestLevelReached === 3){
       printOutput("SOLUTION HAS BEEN FOUND, IS PORTABLE, AND IS GENERALLY APPLICABLE. THE GREAT PROBLEM HAS BEEN SOLVED.");
     }
+    printOutput(`\nYOU HAVE MADE ${iterateAttempts} ATTEMPT(S) TO ITERATE SO FAR.`)
 }
 
 function scrollToBottom() {
@@ -187,6 +188,7 @@ function processCommand(cmd) {
         iteratorSim();
     } else if (c === 'iterateprogress'){
         getHighestLevelReached();
+        iterateAttempts = iterateAttempts + 1;
     } else {
         printOutput(`Command not found: ${c}`);
     }
