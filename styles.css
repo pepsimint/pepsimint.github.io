@@ -20,7 +20,7 @@ body {
   flex: 1;
   background-color: #1E1E1E;
   overflow-y: auto;
-  padding: 20px;
+  padding: 10px;
   box-sizing: border-box;
 }
 
