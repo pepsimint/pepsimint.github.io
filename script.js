@@ -9,15 +9,21 @@ function randomUint64() {
     return (BigInt(array[0]) << 32n) | BigInt(array[1]);
 }
 
+var highestLevelReached = 0;
+
+
 function iteratorSim() {
     var solutionExists = randomUint64();
     var solutionIsPortable = randomUint64();
     var solutionGenApplicable = randomUint64();
     var message = "";
-
+    var currentLevel = 0;
     if (solutionExists === randomUint64()) {
+      currentLevel = 1;
         if (solutionIsPortable === randomUint64()) {
+          currentLevel = 2;
             if (solutionGenApplicable === randomUint64()) {
+              currentLevel = 3;
                 message = "SOLUTION HAS BEEN FOUND, IS PORTABLE, AND IS GENERALLY APPLICABLE. THE GREAT PROBLEM HAS BEEN SOLVED.";
             } else {
                 message = "SOLUTION HAS BEEN FOUND AND IS PORTABLE, BUT ISN'T GENERALLY APPLICABLE.";
@@ -28,8 +34,22 @@ function iteratorSim() {
     } else {
         message = "SOLUTION HASN'T BEEN FOUND.";
     }
-
+    if (currentLevel > highestLevelReached) {
+        highestLevelReached = currentLevel;
+    }
     printOutput(message);
+}
+
+function getHighestLevelReached() {
+    if (highestLevelReached === 0) {
+      printOutput("SOLUTION HASN'T BEEN FOUND.");
+    } else if (highestLevelReached === 1) {
+      printOutput("SOLUTION HAS BEEN FOUND BUT ISN'T PORTABLE.");
+    } else if (highestLevelReached === 2){
+      printOutput("SOLUTION HAS BEEN FOUND AND IS PORTABLE, BUT ISN'T GENERALLY APPLICABLE.");
+    } else if (highestLevelReached === 3){
+      printOutput("SOLUTION HAS BEEN FOUND, IS PORTABLE, AND IS GENERALLY APPLICABLE. THE GREAT PROBLEM HAS BEEN SOLVED.");
+    }
 }
 
 function scrollToBottom() {
@@ -165,6 +185,8 @@ function processCommand(cmd) {
         printOutput('I like Edward Skeletrix, ICP, M.I.A, Osamason, Radiohead, Deftones, Goreshit...');
     } else if (c === 'iterate') {
         iteratorSim();
+    } else if (c === 'iterateprogress'){
+        getHighestLevelReached();
     } else {
         printOutput(`Command not found: ${c}`);
     }
