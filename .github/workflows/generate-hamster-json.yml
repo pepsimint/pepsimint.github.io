@@ -1,0 +1,26 @@
+name: Generate hamster.json
+
+on:
+  push:
+    paths:
+      - 'hamster/**'
+      - '.github/workflows/generate-hamster-json.yml'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Generate hamster.json
+        run: |
+          cd hamster
+          ls -1 | jq -R -s -c 'split("\n")[:-1]' > hamster.json
+          mv hamster.json ..
+
+      - name: Commit hamster.json
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Auto-update hamster.json"
+          file_pattern: hamster.json
