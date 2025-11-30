@@ -235,6 +235,6 @@ function processCommand(cmd) {
                 clearInterval(interval);
                 printOutput('THE FELINE IS DEPLOYED');
             }
-        }, 500);
+        }, 200);
     }
 }
