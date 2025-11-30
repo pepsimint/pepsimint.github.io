@@ -6,12 +6,20 @@ on:
       - 'hamster/**'
       - '.github/workflows/generate-hamster-json.yml'
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
+
+      - name: Set git identity
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
       - name: Generate hamster.json
         run: |
@@ -24,3 +32,4 @@ jobs:
         with:
           commit_message: "Auto-update hamster.json"
           file_pattern: hamster.json
+          push: true
