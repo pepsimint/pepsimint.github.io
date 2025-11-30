@@ -3,6 +3,20 @@ const outputContainer = document.getElementById('output-container');
 const inputLine = document.getElementById('input-line');
 const hiddenInput = document.getElementById('hidden-input');
 
+
+let hamsterImages = [];
+
+fetch("hamster.json")
+    .then(res => res.json())
+    .then(data => {
+        hamsterImages = data.map(name => `hamster/${name}`);
+    });
+function getRandomHamster() {
+    if (hamsterImages.length === 0) return null;
+    const i = Math.floor(Math.random() * hamsterImages.length);
+    return hamsterImages[i];
+}
+
 function randomUint64() {
     const array = new Uint32Array(2);
     crypto.getRandomValues(array);
@@ -189,7 +203,14 @@ function processCommand(cmd) {
     } else if (c === 'iterateprogress'){
         getHighestLevelReached();
         iterateAttempts = iterateAttempts + 1;
+    } else if (c === 'hamster') {
+    const img = getRandomHamster();
+    if (!img) {
+        printOutput("Hamster image list is still loading. Try again in a moment.");
     } else {
+        slowlyLoad(img);
+    }
+} else {
         printOutput(`Command not found: ${c}`);
     }
 
