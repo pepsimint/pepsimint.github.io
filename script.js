@@ -3,7 +3,6 @@ const outputContainer = document.getElementById('output-container');
 const inputLine = document.getElementById('input-line');
 const hiddenInput = document.getElementById('hidden-input');
 
-
 let hamsterImages = [];
 
 fetch("hamster.json")
@@ -11,6 +10,7 @@ fetch("hamster.json")
     .then(data => {
         hamsterImages = data.map(name => `hamster/${name}`);
     });
+
 function getRandomHamster() {
     if (hamsterImages.length === 0) return null;
     const i = Math.floor(Math.random() * hamsterImages.length);
@@ -32,12 +32,13 @@ function iteratorSim() {
     var solutionGenApplicable = randomUint64();
     var message = "";
     var currentLevel = 0;
+
     if (solutionExists === randomUint64()) {
-      currentLevel = 1;
+        currentLevel = 1;
         if (solutionIsPortable === randomUint64()) {
-          currentLevel = 2;
+            currentLevel = 2;
             if (solutionGenApplicable === randomUint64()) {
-              currentLevel = 3;
+                currentLevel = 3;
                 message = "SOLUTION HAS BEEN FOUND, IS PORTABLE, AND IS GENERALLY APPLICABLE. THE GREAT PROBLEM HAS BEEN SOLVED.";
             } else {
                 message = "SOLUTION HAS BEEN FOUND AND IS PORTABLE, BUT ISN'T GENERALLY APPLICABLE.";
@@ -48,23 +49,26 @@ function iteratorSim() {
     } else {
         message = "SOLUTION HASN'T BEEN FOUND.";
     }
+
     if (currentLevel > highestLevelReached) {
         highestLevelReached = currentLevel;
     }
+
     printOutput(message);
 }
 
 function getHighestLevelReached() {
     if (highestLevelReached === 0) {
-      printOutput("SOLUTION HASN'T BEEN FOUND.");
+        printOutput("SOLUTION HASN'T BEEN FOUND.");
     } else if (highestLevelReached === 1) {
-      printOutput("SOLUTION HAS BEEN FOUND BUT ISN'T PORTABLE.");
-    } else if (highestLevelReached === 2){
-      printOutput("SOLUTION HAS BEEN FOUND AND IS PORTABLE, BUT ISN'T GENERALLY APPLICABLE.");
-    } else if (highestLevelReached === 3){
-      printOutput("SOLUTION HAS BEEN FOUND, IS PORTABLE, AND IS GENERALLY APPLICABLE. THE GREAT PROBLEM HAS BEEN SOLVED.");
+        printOutput("SOLUTION HAS BEEN FOUND BUT ISN'T PORTABLE.");
+    } else if (highestLevelReached === 2) {
+        printOutput("SOLUTION HAS BEEN FOUND AND IS PORTABLE, BUT ISN'T GENERALLY APPLICABLE.");
+    } else if (highestLevelReached === 3) {
+        printOutput("SOLUTION HAS BEEN FOUND, IS PORTABLE, AND IS GENERALLY APPLICABLE. THE GREAT PROBLEM HAS BEEN SOLVED.");
     }
-    printOutput(`\nYOU HAVE MADE ${iterateAttempts} ATTEMPT(S) TO ITERATE SO FAR.`)
+
+    printOutput(`\nYOU HAVE MADE ${iterateAttempts} ATTEMPT(S) TO ITERATE SO FAR.`);
 }
 
 function scrollToBottom() {
@@ -183,7 +187,15 @@ function processCommand(cmd) {
     const c = cmd.trim();
 
     if (c === 'help') {
-        printOutput('Available commands:\nhelp - show this\ninfo - general information about me\naliases - my aliases\nclear - clear the terminal\ndate - display current date\nmusic - music artists i like most');
+        printOutput(
+            'Available commands:\n' +
+            'help - show this\n' +
+            'info - general information about me\n' +
+            'aliases - my aliases\n' +
+            'clear - clear the terminal\n' +
+            'date - display current date\n' +
+            'music - music artists i like most'
+        );
     } else if (c === 'info') {
         printOutput('I am 17 years old, my birthday is on the 26th of October. Aspiring IT technician and the greatest programmer on earth (that’s why god chose me)');
     } else if (c === 'clear') {
@@ -200,17 +212,17 @@ function processCommand(cmd) {
         printOutput('I like Edward Skeletrix, ICP, M.I.A, Osamason, Radiohead, Deftones, Goreshit...');
     } else if (c === 'iterate') {
         iteratorSim();
-    } else if (c === 'iterateprogress'){
+    } else if (c === 'iterateprogress') {
         getHighestLevelReached();
         iterateAttempts = iterateAttempts + 1;
     } else if (c === 'hamster') {
-    const img = getRandomHamster();
-    if (!img) {
-        printOutput("Hamster image list is still loading. Try again in a moment.");
+        const img = getRandomHamster();
+        if (!img) {
+            printOutput("Hamster image list is still loading. Try again in a moment.");
+        } else {
+            slowlyLoad(img);
+        }
     } else {
-        slowlyLoad(img);
-    }
-} else {
         printOutput(`Command not found: ${c}`);
     }
 
@@ -233,7 +245,6 @@ function processCommand(cmd) {
             scrollToBottom();
             if (progress <= 0) {
                 clearInterval(interval);
-                printOutput('THE FELINE IS DEPLOYED');
             }
         }, 200);
     }
