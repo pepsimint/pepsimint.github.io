@@ -194,7 +194,8 @@ function processCommand(cmd) {
             'aliases - my aliases\n' +
             'clear - clear the terminal\n' +
             'date - display current date\n' +
-            'music - music artists i like most'
+            'music - music artists i like most\n' +
+            'hamster - random hamster image'
         );
     } else if (c === 'info') {
         printOutput('I am 17 years old, my birthday is on the 26th of October. Aspiring IT technician and the greatest programmer on earth (that’s why god chose me)');
