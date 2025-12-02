@@ -209,7 +209,7 @@ function processCommand(cmd) {
     } else if (c === 'date') {
         printOutput(getCurrentDateTime());
     } else if (c === 'music') {
-        printOutput('I like Edward Skeletrix, ICP, M.I.A, Osamason, Radiohead, Deftones, Goreshit...');
+        printOutput('I like Edward Skeletrix, ICP, M.I.A, Osamason, Radiohead, Deftones, Nirvana...');
     } else if (c === 'iterate') {
         iteratorSim();
     } else if (c === 'iterateprogress') {
