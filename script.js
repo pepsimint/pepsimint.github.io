@@ -236,13 +236,13 @@ function processCommand(cmd) {
         const img = new Image();
         img.src = src;
         img.style.clipPath = 'inset(100% 0 0 0)';
+        img.style = 'width: 300px';
         container.appendChild(img);
 
         let progress = 100;
         const interval = setInterval(() => {
             progress -= 1;
             img.style.clipPath = `inset(${progress}% 0 0 0)`;
-            scrollToBottom();
             if (progress <= 0) {
                 clearInterval(interval);
             }
